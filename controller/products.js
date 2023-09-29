@@ -1,5 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const pool = require('../db');
+
 // * GET:://products ; get all products when hit the url
 const allProducts = async (req, res) => {
   try {
@@ -22,16 +23,18 @@ const getSingleProducts = async (req, res) => {
   }
 };
 
-//* POST:://products ; post single product when hit the url
+//* POST::/products ; post a single product when hit the url
+//CREATE-PRODUCT
 const createProducts = async (req, res) => {
   try {
-    const { name, description } = req.body;
+    const { name, img, price, title, description, catagory, amount, rating } =
+      req.body;
     const id = uuidv4();
 
     //products insert into postger database
     const newProducts = await pool.query(
-      'INSERT INTO product (id, name, description) VALUES ($1,$2,$3) RETURNING *',
-      [id, name, description]
+      'INSERT INTO product (id, name, img, price, title, description, catagory, amount, rating) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
+      [id, name, img, price, title, description, catagory, amount, rating]
     );
 
     res.status(201).json({
@@ -43,7 +46,7 @@ const createProducts = async (req, res) => {
   }
 };
 
-//* DELETE:://products/:id ; delete single product when hit the url
+//* DELETE::/products/:id ; delete a single product when hit the url
 const deleteProducts = async (req, res) => {
   try {
     const { id } = req.params;
@@ -59,12 +62,13 @@ const deleteProducts = async (req, res) => {
 const updateProducts = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description } = req.body;
+    const { name, img, price, title, description, catagory, amount, rating } =
+      req.body;
 
     //products insert into postger database
     const newProducts = await pool.query(
-      'UPDATE product SET name=$1, description=$2 WHERE id=$3 RETURNING *',
-      [name, description, id]
+      'UPDATE product SET name=$1, img=$2, price=$3, title=$4, description=$5, catagory=$6, amount=$7, rating=$8 WHERE id=$9 RETURNING *',
+      [name, img, price, title, description, catagory, amount, rating, id]
     );
 
     res.status(200).json({

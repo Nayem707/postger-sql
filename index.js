@@ -2,8 +2,10 @@ const express = require('express');
 require('dotenv').config();
 const app = express();
 const productRouter = require('./router/products');
+const cors = require('cors');
+
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 app.get('/', (req, res) => {
   return res.send('hello');
