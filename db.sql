@@ -1,10 +1,13 @@
+/*CREATE DATABASE IN POSTGER-SQL*/
 CREATE DATABASE productsdb;
 
+/*CREATE TABLE IN POSTGER-SQL*/
 CREATE TABLE product (
   id VARCHAR(250) PRIMARY KEY,
   name VARCHAR (20),
   description VARCHAR(260)
 );
+
 /*INSERT DATA POSTGER-SQL*/
 INSERT INTO product (id, name, description)
 VALUES
