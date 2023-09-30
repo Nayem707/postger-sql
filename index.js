@@ -11,6 +11,10 @@ app.get('/', (req, res) => {
   return res.send('hello');
 });
 
+// app.get('*', (req, res) => {
+//   return res.send('route dose not exist!');
+// });
+
 app.use('/products', productRouter);
 
 const port = process.env.PORT || 8000;
